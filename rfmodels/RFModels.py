@@ -154,22 +154,26 @@ class receptive_field_models:
             
     def encode(self, stim, k, nonlinearity = 'exp', y_scale = 1.0, y_offset = 0):
         # preliminary checks
-        if len(stim.shape) == 3:
-            # reshape stim to reflect (nchannels, ntimesteps)
-            stim = stim.reshape(stim.shape[0]*stim.shape[1], stim.shape[2])
-        else:
+        if stim == 'cache':
             pass
-        
-        if len(k.shape) == 3:
-            # reshape k to reflect (nchannels, ntimesteps)
-            k = k.reshape(k.shape[0]*k.shape[1], k.shape[2])
         else:
-            pass
-        
-        assert stim.shape[0] == k.shape[0], "Number of channels doesn't match between stim and RF"
-        
-        # prepare design matrix & RF
-        self.dm = self.design_matrix(stim, k.shape)
+            if len(stim.shape) == 3:
+                # reshape stim to reflect (nchannels, ntimesteps)
+                stim = stim.reshape(stim.shape[0]*stim.shape[1], stim.shape[2])
+            else:
+                pass
+
+            if len(k.shape) == 3:
+                # reshape k to reflect (nchannels, ntimesteps)
+                k = k.reshape(k.shape[0]*k.shape[1], k.shape[2])
+            else:
+                pass
+
+            assert stim.shape[0] == k.shape[0], "Number of channels doesn't match between stim and RF"
+
+            # prepare design matrix & RF
+            self.dm = self.design_matrix(stim, k.shape)
+            
         X, K = (self.dm, k.flatten())
         
         # dot product of X and K
