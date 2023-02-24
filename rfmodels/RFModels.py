@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.linalg import toeplitz
-from sklearn.linear_model import Ridge, RidgeCV, LinearRegression
+from sklearn.linear_model import Ridge, RidgeCV, LinearRegression, PoissonRegressor
 from sklearn.decomposition import PCA
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
@@ -69,6 +69,7 @@ class receptive_field_models:
             'linearregression': LinearRegression,
             'ridge': Ridge, 
             'ridgecv': RidgeCV,
+            'poissonregressor': PoissonRegressor,
         }
         
         transforms = {
